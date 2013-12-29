@@ -1,0 +1,22 @@
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?> style="<?php if ($this->margin): ?><?php echo trim($this->margin); ?><?php endif; ?> <?php if ($this->style): ?><?php echo $this->style; ?><?php endif; ?>">
+
+  <?php if ($this->headline): ?>
+  <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+  <?php endif; ?>
+
+  <?php if ($this->floatClass == "below"): ?>
+    <?php echo $this->text; ?>
+  <?php endif; ?>
+
+  <figure class="image_container float_<?php echo $this->floatClass; ?>" style="width:<?php echo $this->diasize; ?>px;<?php if ($this->alignment): ?> float:<?php echo $this->alignment; ?>;<?php endif; ?>">
+  <img src="/system/modules/fen/public/fen.php?<?php echo $this->params; ?>" width="<?php echo $this->diasize; ?>" alt="<?php echo $this->caption; ?>"<?php if ($this->caption): ?> title="<?php echo $this->caption; ?>"<?php endif; ?>>
+  <?php if ($this->caption): ?>
+  <figcaption class="caption" style="width:<?php echo $this->diasize; ?>px"><?php echo $this->caption; ?></figcaption>
+  <?php endif; ?>
+  </figure>
+
+  <?php if ($this->floatClass != "below"): ?>
+    <?php echo $this->text; ?>
+  <?php endif; ?>
+
+</div>
