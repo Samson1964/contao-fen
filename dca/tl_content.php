@@ -34,7 +34,8 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['fen_code'] = array
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['fen_code'],
 	'default'       => 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
 	'inputType'     => 'text',
-	'eval'          => array('mandatory' => true, 'tl_class' => 'long')
+	'eval'          => array('mandatory'=>true, 'tl_class'=>'long', 'maxlength'=>80),
+	'sql'           => "VARCHAR(80) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['fen_untertitel'] = array
@@ -43,7 +44,8 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['fen_untertitel'] = array
 	'default'       => 'Diagramm',
 	'search'        => true,
 	'inputType'     => 'text',
-	'eval'          => array('tl_class' => 'long')
+	'eval'          => array('tl_class'=>'long', 'maxlength'=>255),
+	'sql'           => "VARCHAR(255) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['fen_figurengroesse'] = array
@@ -52,7 +54,8 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['fen_figurengroesse'] = array
 	'default'       => $GLOBALS['TL_CONFIG']['fen_figurengroesse'],
 	'inputType'     => 'select',
 	'options'       => array('25','35'),
-	'eval'          => array('tl_class' => 'w50')
+	'eval'          => array('tl_class' => 'w50'),
+	'sql'           => "INT(10) unsigned NOT NULL default '35'"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['fen_figurensatz'] = array
@@ -62,7 +65,8 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['fen_figurensatz'] = array
 	'inputType'     => 'select',
 	'options'       => array('adventurer','alfonso','cases','condal','harlequin','kingdom','leipzig','line','lucena','magnetic','mark','marroquin','maya','mediaeval','merida','motif'),
 	'reference'     => &$GLOBALS['TL_LANG']['tl_content']['fen_figurensatz_option'],
-	'eval'          => array('tl_class' => 'w50')
+	'eval'          => array('tl_class'=>'w50', 'maxlength'=>10),
+	'sql'           => "VARCHAR(10) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['fen_rand'] = array
@@ -70,7 +74,8 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['fen_rand'] = array
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['fen_rand'],
 	'default'       => $GLOBALS['TL_CONFIG']['fen_rand'],
 	'inputType'     => 'checkbox',
-	'eval'          => array('tl_class' => 'w50','isBoolean' => true,'submitOnChange'=>true)
+	'eval'          => array('tl_class' => 'w50','isBoolean' => true,'submitOnChange'=>true),
+	'sql'           => "CHAR(1) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['fen_randbreite'] = array
@@ -79,7 +84,8 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['fen_randbreite'] = array
 	'default'       => $GLOBALS['TL_CONFIG']['fen_randbreite'],
 	'inputType'     => 'select',
 	'options'       => array('1','2','3','4','5','6'),
-	'eval'          => array('tl_class' => 'w50 clr')
+	'eval'          => array('tl_class' => 'w50 clr'),
+	'sql'           => "INT(1) unsigned NOT NULL default '1'"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['fen_randfarbe'] = array
@@ -87,7 +93,8 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['fen_randfarbe'] = array
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['fen_randfarbe'],
 	'default'       => $GLOBALS['TL_CONFIG']['fen_randfarbe'],
 	'inputType'     => 'text',
-	'eval'          => array('tl_class' => 'w50','colorpicker'=>true)
+	'eval'          => array('tl_class' => 'w50','colorpicker'=>true),
+	'sql'           => "VARCHAR(6) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['fen_farbeweiss'] = array
@@ -95,7 +102,8 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['fen_farbeweiss'] = array
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['fen_farbeweiss'],
 	'default'       => $GLOBALS['TL_CONFIG']['fen_farbeweiss'],
 	'inputType'     => 'text',
-	'eval'          => array('tl_class' => 'w50','colorpicker'=>true)
+	'eval'          => array('tl_class' => 'w50','colorpicker'=>true),
+	'sql'           => "VARCHAR(6) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['fen_farbeschwarz'] = array
@@ -103,7 +111,8 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['fen_farbeschwarz'] = array
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['fen_farbeschwarz'],
 	'default'       => $GLOBALS['TL_CONFIG']['fen_farbeschwarz'],
 	'inputType'     => 'text',
-	'eval'          => array('tl_class' => 'w50','colorpicker'=>true)
+	'eval'          => array('tl_class' => 'w50','colorpicker'=>true),
+	'sql'           => "VARCHAR(6) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['fen_koordinaten'] = array
@@ -111,7 +120,8 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['fen_koordinaten'] = array
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['fen_koordinaten'],
 	'default'       => $GLOBALS['TL_CONFIG']['fen_koordinaten'],
 	'inputType'     => 'checkbox',
-	'eval'          => array('tl_class' => 'w50')
+	'eval'          => array('tl_class' => 'w50'),
+	'sql'           => "CHAR(1) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['fen_brettdrehen'] = array
@@ -119,7 +129,8 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['fen_brettdrehen'] = array
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['fen_brettdrehen'],
 	'default'       => false,
 	'inputType'     => 'checkbox',
-	'eval'          => array('tl_class' => 'w50')
+	'eval'          => array('tl_class' => 'w50'),
+	'sql'           => "CHAR(1) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['fen_text'] = array
@@ -130,6 +141,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['fen_text'] = array
 	'inputType'     => 'textarea',
 	'eval'          => array('rte'=>'tinyMCE','helpwizard'=>true),
 	'explanation'   => 'insertTags',
+	'sql'           => "TEXT NULL"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['fen_textfluss'] = array
@@ -138,8 +150,9 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['fen_textfluss'] = array
 	'exclude'       => true,
 	'inputType'     => 'radioTable',
 	'options'       => array('above', 'left', 'right', 'below'),
-	'eval'          => array('cols'=>4, 'tl_class'=>'w50'),
+	'eval'          => array('cols'=>4, 'tl_class'=>'w50',  'maxlength'=>5),
 	'reference'     => &$GLOBALS['TL_LANG']['MSC'],
+	'sql'           => "VARCHAR(5) NOT NULL default ''"
 );
 
 ?>

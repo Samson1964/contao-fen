@@ -15,8 +15,8 @@
 --
 
 CREATE TABLE `tl_content` (
-  `fen_code` varchar(255) NOT NULL default '',
-  `fen_figurensatz` varchar(255) NOT NULL default '',
+  `fen_code` varchar(80) NOT NULL default '',
+  `fen_figurensatz` varchar(10) NOT NULL default '',
   `fen_figurengroesse` int(10) unsigned NOT NULL default '35',
   `fen_untertitel` varchar(255) NOT NULL default '',
   `fen_koordinaten` char(1) NOT NULL default '',
@@ -27,5 +27,5 @@ CREATE TABLE `tl_content` (
   `fen_farbeweiss` varchar(6) NOT NULL default '',
   `fen_farbeschwarz` varchar(6) NOT NULL default '',
   `fen_text` text NULL, 
-  `fen_textfluss` varchar(255) NOT NULL default '',
+  `fen_textfluss` varchar(5) NOT NULL default '',
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
