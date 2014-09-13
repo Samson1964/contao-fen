@@ -6,6 +6,7 @@
  * Copyright (C) 2005-2013 Leo Feyer
  *
  * @package   fen
+ * Version    1.0.0
  * @author    Frank Hoppe
  * @license   GNU/LGPL
  * @copyright Frank Hoppe 2013

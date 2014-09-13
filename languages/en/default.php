@@ -11,8 +11,8 @@
  * @copyright Frank Hoppe 2013
  */
 
-$GLOBALS['TL_LANG']['CTE']['schach'] = "Schach-Elemente";
-$GLOBALS['TL_LANG']['CTE']['fen']['0'] = "FEN-Diagramm";
-$GLOBALS['TL_LANG']['CTE']['fen']['1'] = "Diagramm (als Bild) mit Forsyth-Edwards-Notation (FEN) einbinden";
+$GLOBALS['TL_LANG']['CTE']['schach'] = "Chess-Elements";
+$GLOBALS['TL_LANG']['CTE']['fen']['0'] = "FEN diagram";
+$GLOBALS['TL_LANG']['CTE']['fen']['1'] = "Integrate diagram (as picture) with Forsyth-Edwards Notation (FEN)";
 
 ?>
