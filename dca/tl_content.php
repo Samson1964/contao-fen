@@ -17,13 +17,16 @@
 if($GLOBALS['TL_CONFIG']['fen_everdefault'])
 {
 	// Die Voreinstellungen haben die höhere Priorität. Deshalb werden einige Felder ausgeblendet.
-	$GLOBALS['TL_DCA']['tl_content']['palettes']['fen'] = '{type_legend},type,headline;{fen_legend},fen_code,fen_untertitel;{fendarstellung_legend},fen_brettdrehen;{fentext_legend},fen_text,fen_textfluss;{protected_legend:hide},protected;{expert_legend:hide},guest,cssID,space';
+	$GLOBALS['TL_DCA']['tl_content']['palettes']['fen'] = '{type_legend},type,headline;{fen_legend},fen_code,fen_untertitel;{fendarstellung_legend},fen_brettdrehen;{fentext_legend},fen_text,fen_textfluss;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space;{invisible_legend:hide},invisible,start,stop';
+	// Diagrammrand Voreinstellung zuweisen
+	($GLOBALS['TL_CONFIG']['fen_rand']) ? $diagrammrand = '1' : $diagrammrand = '';
 }
 else
 {
 	$GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'fen_rand';
-	$GLOBALS['TL_DCA']['tl_content']['palettes']['fen'] = '{type_legend},type,headline;{fen_legend},fen_code,fen_untertitel;{fenfig_legend},fen_figurensatz,fen_figurengroesse;{fenbrett_legend},fen_rand;{fenfarbe_legend},fen_farbeweiss,fen_farbeschwarz;{fendarstellung_legend},fen_koordinaten,fen_brettdrehen;{fentext_legend},fen_text,fen_textfluss;{protected_legend:hide},protected;{expert_legend:hide},guest,cssID,space';
+	$GLOBALS['TL_DCA']['tl_content']['palettes']['fen'] = '{type_legend},type,headline;{fen_legend},fen_code,fen_untertitel;{fenfig_legend},fen_figurensatz,fen_figurengroesse;{fenbrett_legend},fen_rand;{fenfarbe_legend},fen_farbeweiss,fen_farbeschwarz;{fendarstellung_legend},fen_koordinaten,fen_brettdrehen;{fentext_legend},fen_text,fen_textfluss;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space;{invisible_legend:hide},invisible,start,stop';
 	$GLOBALS['TL_DCA']['tl_content']['subpalettes']['fen_rand'] = 'fen_randbreite,fen_randfarbe';
+	$diagrammrand = '';
 }
 
 /**
@@ -32,16 +35,20 @@ else
 $GLOBALS['TL_DCA']['tl_content']['fields']['fen_code'] = array
 (
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['fen_code'],
-	'default'       => 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+	'default'       => 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR',
 	'inputType'     => 'text',
 	'eval'          => array('mandatory'=>true, 'tl_class'=>'long', 'maxlength'=>80),
-	'sql'           => "VARCHAR(80) NOT NULL default ''"
+	'sql'           => "VARCHAR(80) NOT NULL default ''",
+	'save_callback' => array
+	(
+		array('tl_content_fen', 'croppedFEN')
+	) 
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['fen_untertitel'] = array
 (
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['fen_untertitel'],
-	'default'       => 'Diagramm',
+	'default'       => '',
 	'search'        => true,
 	'inputType'     => 'text',
 	'eval'          => array('tl_class'=>'long', 'maxlength'=>255),
@@ -53,7 +60,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['fen_figurengroesse'] = array
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['fen_figurengroesse'],
 	'default'       => $GLOBALS['TL_CONFIG']['fen_figurengroesse'],
 	'inputType'     => 'select',
-	'options'       => array('25','35'),
+	'options'       => array('20', '25', '30', '35', '40'),
 	'eval'          => array('tl_class' => 'w50'),
 	'sql'           => "INT(10) unsigned NOT NULL default '35'"
 );
@@ -72,9 +79,9 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['fen_figurensatz'] = array
 $GLOBALS['TL_DCA']['tl_content']['fields']['fen_rand'] = array
 (
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['fen_rand'],
-	'default'       => $GLOBALS['TL_CONFIG']['fen_rand'],
+	'default'       => $diagrammrand,
 	'inputType'     => 'checkbox',
-	'eval'          => array('tl_class' => 'w50','isBoolean' => true,'submitOnChange'=>true),
+	'eval'          => array('tl_class' => 'w50', 'isBoolean' => true, 'submitOnChange'=>true),
 	'sql'           => "CHAR(1) NOT NULL default ''"
 );
 
@@ -148,11 +155,31 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['fen_textfluss'] = array
 (
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['fen_textfluss'],
 	'exclude'       => true,
+	'default'       => 'above',
 	'inputType'     => 'radioTable',
 	'options'       => array('above', 'left', 'right', 'below'),
 	'eval'          => array('cols'=>4, 'tl_class'=>'w50',  'maxlength'=>5),
 	'reference'     => &$GLOBALS['TL_LANG']['MSC'],
 	'sql'           => "VARCHAR(5) NOT NULL default ''"
 );
+
+/**
+ * Class tl_content_fen
+ */
+class tl_content_fen extends Backend
+{ 
+	/**
+	 * Entfernt die am Ende überflüssigen Zeichen aus dem FEN-Code
+	 * @param mixed
+	 * @param \DataContainer
+	 * @return mixed
+	 */
+	public function croppedFEN($varValue, DataContainer $dc)
+	{
+		// String am Leerzeichen trennen
+		$temp = explode(' ', $varValue);
+		return $temp[0];
+	}
+}
 
 ?>

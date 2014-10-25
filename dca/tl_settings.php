@@ -26,7 +26,7 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['fen_figurengroesse'] = array
 (
 	'label'         => &$GLOBALS['TL_LANG']['tl_settings']['fen_figurengroesse'],
 	'inputType'     => 'select',
-	'options'       => array('25','35'),
+	'options'       => array('20', '25', '30', '35', '40'),
 	'eval'          => array('tl_class' => 'w50')
 );
 
