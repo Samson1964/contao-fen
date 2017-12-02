@@ -87,7 +87,7 @@ class FEN extends \ContentElement
 		else $params .= "&ds_color=";
 
 		// Diagrammgröße errechnen
-		$diasize = ($fen_figurengroesse * 8) + ($fen_rand * 2);
+		$diasize = ((int)$fen_figurengroesse * 8) + ((int)$fen_rand * 2);
 		if($fen_koordinaten) $diasize = $diasize + 50;
 
 		// Template ausgeben

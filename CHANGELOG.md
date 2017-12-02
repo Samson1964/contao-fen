@@ -1,5 +1,9 @@
 # FEN - Schachdiagramme
 
+## Version 1.2.1 (2017-12-02)
+
+- Fix: non-numeric value in FEN.php Zeile 90
+
 ## Version 1.2.0 (2014-10-25)
 
 - Vorgabe-FEN-Code auf die Felder verkürzt
